@@ -1,9 +1,15 @@
 import express from "express"
 import "reflect-metadata"
 
+import database from "./config/database"
 import TaskRoutes from "./tasks/task.routes"
 
 const app = express()
+
+database
+  .initialize()
+  .then(() => console.log("Database connected"))
+  .catch(error => console.error(error))
 
 app.use("/api", TaskRoutes)
 
