@@ -7,7 +7,7 @@ const router = Router()
 
 const controller = new TaskController(new TaskRepository())
 
-router.post("/tasks", controller.create)
+router.post("/tasks", controller.create.bind(controller))
 
 router.get("/tasks", controller.list)
 
