@@ -1,5 +1,6 @@
-import database from "../config/database"
+import { NotFound } from "http-errors"
 
+import database from "../config/database"
 import { DatabaseRepository, Id, Query } from "../types"
 import { Task } from "../entity/Task"
 
@@ -25,7 +26,7 @@ export class TaskRepository implements DatabaseRepository<Task> {
 
     const task = await repository.findOneBy({ id })
 
-    if (!task) throw new Error("Task does not exist")
+    if (!task) throw new NotFound("Task does not exist")
 
     return task
   }
