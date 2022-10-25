@@ -47,6 +47,12 @@ export class TaskController {
   }
 
   async remove(req: Request, res: Response, next: NextFunction): Promise<void> {
-    res.status(200).json({ message: "Remove task" })
+    try {
+      const task = await this.repository.remove(Number(req.params.taskId))
+
+      res.status(200).json(task)
+    } catch (error) {
+      next(error)
+    }
   }
 }

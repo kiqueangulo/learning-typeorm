@@ -39,7 +39,13 @@ export class TaskRepository implements DatabaseRepository<Task> {
     return this.get(id, query)
   }
 
-  remove(id: Id, query?: Query | undefined): Promise<Task> {
-    throw new Error("Method not implemented.")
+  async remove(id: Id, query?: Query | undefined): Promise<Task> {
+    const repository = database.getRepository(Task)
+
+    const task = await this.get(id, query)
+
+    await repository.delete(task.id)
+
+    return task
   }
 }
