@@ -17,7 +17,13 @@ export class TaskController {
   }
 
   async list(req: Request, res: Response, next: NextFunction): Promise<void> {
-    res.status(200).json({ message: "List task" })
+    try {
+      const tasks = await this.repository.list()
+
+      res.status(200).json(tasks)
+    } catch (error) {
+      next(error)
+    }
   }
 
   async get(req: Request, res: Response, next: NextFunction): Promise<void> {
