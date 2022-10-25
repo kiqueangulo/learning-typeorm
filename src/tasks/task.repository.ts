@@ -20,8 +20,14 @@ export class TaskRepository implements DatabaseRepository<Task> {
     return repository.find()
   }
 
-  get(id: Id, query?: Query | undefined): Promise<Task> {
-    throw new Error("Method not implemented.")
+  async get(id: Id, query?: Query | undefined): Promise<Task> {
+    const repository = database.getRepository(Task)
+
+    const task = await repository.findOneBy({ id })
+
+    if (!task) throw new Error("Task does not exist")
+
+    return task
   }
 
   update(id: Id, data: Task, query?: Query | undefined): Promise<Task> {

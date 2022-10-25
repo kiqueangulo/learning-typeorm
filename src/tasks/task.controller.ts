@@ -27,7 +27,13 @@ export class TaskController {
   }
 
   async get(req: Request, res: Response, next: NextFunction): Promise<void> {
-    res.status(200).json({ message: "Get task" })
+    try {
+      const task = await this.repository.get(Number(req.params.taskId))
+
+      res.status(200).json(task)
+    } catch (error) {
+      next(error)
+    }
   }
 
   async update(req: Request, res: Response, next: NextFunction): Promise<void> {
