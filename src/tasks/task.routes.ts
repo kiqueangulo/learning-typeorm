@@ -1,10 +1,11 @@
 import { Router } from "express"
 
 import { TaskController } from "./task.controller"
+import { TaskRepository } from "./task.repository"
 
 const router = Router()
 
-const controller = new TaskController()
+const controller = new TaskController(new TaskRepository())
 
 router.post("/tasks", controller.create)
 

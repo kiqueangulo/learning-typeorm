@@ -1,6 +1,11 @@
 import { Request, Response, NextFunction } from "express"
 
+import { DatabaseRepository } from "../types"
+import { Task } from "../entity/Task"
+
 export class TaskController {
+  constructor(private repository: DatabaseRepository<Task>) {}
+
   async create(req: Request, res: Response, next: NextFunction): Promise<void> {
     res.status(200).json({ message: "Create task" })
   }
