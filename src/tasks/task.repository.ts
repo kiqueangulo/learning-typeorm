@@ -5,7 +5,10 @@ import { DatabaseRepository, Id, Query } from "../types"
 import { Task } from "../entity/Task"
 
 export class TaskRepository implements DatabaseRepository<Task> {
-  async create(data: Partial<Task>, query?: Query | undefined): Promise<Task> {
+  async create(
+    data: Pick<Task, "title" | "description">,
+    query?: Query | undefined
+  ): Promise<Task> {
     const repository = database.getRepository(Task)
 
     const task = repository.create(data)
